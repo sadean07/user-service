@@ -1,5 +1,6 @@
 package com.justtrade.backend.controller;
 
+import com.justtrade.backend.dto.LoginDto;
 import com.justtrade.backend.dto.RegistrationDto;
 import com.justtrade.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //API Registrasi User
     @PostMapping("/users/registration")
-    public ResponseEntity<String> createBankAccount(
+    public ResponseEntity<String> createAccount(
            @RequestBody RegistrationDto registrationDto){
         userService.registerUser(registrationDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    //Api login
+    @PostMapping("/users/login")
+    public ResponseEntity<String> Login(
+            @RequestBody LoginDto loginDto){
+        String status = userService.loginUser(loginDto);
+        return new ResponseEntity<>(status,HttpStatus.OK);
     }
 }

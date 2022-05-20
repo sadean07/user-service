@@ -7,33 +7,33 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserHasCoin {
 
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private DataUser dataUser;
 
-    private String email;
+    @OneToOne
+    @JoinColumn(name = "coinId", referencedColumnName = "id")
+    private DataCoin dataCoin;
 
-    private String password;
+    private int jumlah;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "dataUser")
-    private List<UserHasCoin> userHasCoinList;
-
 }
+
