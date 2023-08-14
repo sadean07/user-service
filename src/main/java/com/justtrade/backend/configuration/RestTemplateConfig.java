@@ -19,9 +19,6 @@ public class RestTemplateConfig {
   @Value("${http.outgoing.connectionTimeout}")
   private int connectionTimeout;
 
-  public static final String CORRELATION_ID_LOG_VAR_NAME = "correlation_id";
-  public static final String CORRELATION_ID_HEADER_NAME = "X-Correlation-Id";
-
   @Bean
   @Qualifier("serviceRestTemplate")
   public RestTemplate serviceRestTemplate() {
