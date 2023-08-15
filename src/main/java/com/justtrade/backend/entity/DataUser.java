@@ -27,6 +27,11 @@ public class DataUser {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    private boolean isActive = true;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -36,4 +41,11 @@ public class DataUser {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "dataUser")
     private List<UserHasCoin> userHasCoinList;
 
+    @OneToOne(fetch = FetchType.EAGER,mappedBy = "user")
+    private UserHasMoney userHasMoney;
+
+    public enum Status {
+        BASIC,
+        PREMIUM
+    }
 }

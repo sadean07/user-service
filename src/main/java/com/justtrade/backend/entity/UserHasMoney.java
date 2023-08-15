@@ -1,5 +1,6 @@
 package com.justtrade.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,28 +9,27 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_has_coin")
-public class UserHasCoin {
+public class UserHasMoney {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private DataUser dataUser;
-
+    @JsonBackReference
     @OneToOne
-    @JoinColumn(name = "coinId", referencedColumnName = "id")
-    private DataCoin dataCoin;
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private DataUser user;
 
-    private int jumlah;
+    @Builder.Default
+    private BigDecimal amount = BigDecimal.ZERO;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -37,4 +37,3 @@ public class UserHasCoin {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 }
-

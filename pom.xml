@@ -64,10 +64,10 @@
 		<!-- END cache dependency -->
 
 		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>

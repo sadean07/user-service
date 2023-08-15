@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 @Component
 public class CryptoCoinsClient {
 
@@ -26,7 +28,7 @@ public class CryptoCoinsClient {
 
     @Cacheable("coin-price")
     public CoinResponseDto getDataCoin(String code) {
-        CoinResponseDto coinResponseDto = null;
+        CoinResponseDto coinResponseDto;
         String uri = coinCryptoBaseUrl + getDataCoinByCode.replace("{code}",code);
         try {
             coinResponseDto =

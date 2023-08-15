@@ -1,6 +1,7 @@
 package com.justtrade.backend.dto;
 
-import com.justtrade.backend.validator.contraint.IsUsernameExist;
+import com.justtrade.backend.validator.constraint.UsernameAlreadyExist;
+import com.justtrade.backend.validator.constraint.UsernameNotFound;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginDto {
 
-    @IsUsernameExist
+    @UsernameNotFound
     private String username;
 
     private String password;

@@ -1,6 +1,6 @@
-package com.justtrade.backend.validator.contraint;
+package com.justtrade.backend.validator.constraint;
 
-import com.justtrade.backend.validator.CheckUsernameValidator;
+import com.justtrade.backend.validator.CheckPasswordValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,13 +10,13 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = CheckUsernameValidator.class)
-public @interface IsUsernameExist {
+@Constraint(validatedBy = CheckPasswordValidator.class)
+public @interface IsPasswordStrongEnough {
     /**
      *
      * @return String
      */
-    String message() default "Username Not Found";
+    String message() default "Password not strong enough.";
 
     /**
      *
