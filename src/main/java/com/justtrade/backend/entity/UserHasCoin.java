@@ -25,9 +25,7 @@ public class UserHasCoin {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private DataUser dataUser;
 
-    @OneToOne
-    @JoinColumn(name = "coinId", referencedColumnName = "id")
-    private DataCoin dataCoin;
+    private Long coinId;
 
     private int jumlah;
 

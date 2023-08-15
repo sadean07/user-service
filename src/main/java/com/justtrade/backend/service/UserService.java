@@ -1,11 +1,14 @@
 package com.justtrade.backend.service;
 
+import com.justtrade.backend.dto.GetUserDataRequestDto;
 import com.justtrade.backend.dto.LoginDto;
 import com.justtrade.backend.dto.RegistrationDto;
 import com.justtrade.backend.entity.DataUser;
 import com.justtrade.backend.entity.UserHasMoney;
 import com.justtrade.backend.repository.DataUserRepository;
 import com.justtrade.backend.repository.UserHasMoneyRepository;
+import com.justtrade.backend.service.jpaspecification.QueryCriteria;
+import com.justtrade.backend.service.jpaspecification.QuerySpecification;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,8 +49,15 @@ public class UserService {
         return dataUserRepository.save(this.dataUserById);
     }
 
-    public Page<DataUser> getAllUser(Pageable pageable){
-        return dataUserRepository.findAll(pageable);
+    public Page<DataUser> getAllUser(GetUserDataRequestDto requestDto,Pageable pageable){
+        QuerySpecification<DataUser> filterUser = new QuerySpecification<>();
+        filterUser.add(new QueryCriteria<>("isActive",requestDto.getIsActive(),
+                QueryCriteria.CriteriaOperation.EQUAL_IGNORE_CASE));
+        filterUser.add(new QueryCriteria<>("email",requestDto.getEmail(),
+                QueryCriteria.CriteriaOperation.EQUAL_IGNORE_CASE));
+        filterUser.add(new QueryCriteria<>("status",requestDto.getStatus(),
+                QueryCriteria.CriteriaOperation.EQUAL_IGNORE_CASE));
+        return dataUserRepository.findAll(filterUser,pageable);
     }
 
     //Api For Register User

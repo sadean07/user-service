@@ -1,5 +1,6 @@
 package com.justtrade.backend.controller;
 
+import com.justtrade.backend.dto.GetUserDataRequestDto;
 import com.justtrade.backend.dto.RegistrationDto;
 import com.justtrade.backend.entity.DataUser;
 import com.justtrade.backend.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/user-service")
 @Validated
 public class UserController {
     @Autowired
@@ -42,8 +44,15 @@ public class UserController {
     }
 
     //Api Get All User
-    @GetMapping("/users/data")
-    public Page<DataUser> getAllUser(Pageable pageable){
-        return userService.getAllUser(pageable);
+    @GetMapping("/users")
+    public Page<DataUser> getAllUser(GetUserDataRequestDto requestDto,Pageable pageable){
+        return userService.getAllUser(requestDto,pageable);
+    }
+
+    //Api Get User by Id
+    @GetMapping("/users/{id}")
+    public DataUser getDataUserById(
+            @IdNotFound @PathVariable("id") Long idUser){
+        return userService.getDataUserById(idUser);
     }
 }
