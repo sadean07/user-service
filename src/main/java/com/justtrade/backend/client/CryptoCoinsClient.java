@@ -4,14 +4,12 @@ import com.justtrade.backend.dto.CoinResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Objects;
 
 @Component
 public class CryptoCoinsClient {
@@ -26,7 +24,8 @@ public class CryptoCoinsClient {
     @Qualifier("serviceRestTemplate")
     private RestTemplate restTemplate;
 
-    @Cacheable("coin-price")
+    //@Cacheable("coin-price")
+    @Cacheable(value = "coin-price", key = "#code")
     public CoinResponseDto getDataCoin(String code) {
         CoinResponseDto coinResponseDto;
         String uri = coinCryptoBaseUrl + getDataCoinByCode.replace("{code}",code);
